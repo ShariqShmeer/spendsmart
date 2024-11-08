@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spendsmart/res/app_colors.dart';
 import 'package:spendsmart/res/images.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -9,7 +8,6 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.splColor,
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -18,12 +16,12 @@ class SplashScreen extends StatelessWidget {
               Images.appLogo,
               width: 109.w,
               height: 115.h,
-              color: AppColors.white,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
             Text(
               'Spend Smart',
               style: TextStyle(
-                color: AppColors.white,
+                color: Theme.of(context).colorScheme.onSurface,
                 fontSize: 40.sp,
                 fontWeight: FontWeight.bold,
               ),

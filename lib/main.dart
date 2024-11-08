@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spendsmart/res/app_colors.dart';
+import 'package:spendsmart/res/app_theme.dart';
 import 'package:spendsmart/screens/launch_screens/splash_screen.dart';
 
 void main() {
@@ -19,12 +19,12 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (context, child) {
           return MaterialApp(
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              scaffoldBackgroundColor: AppColors.mainColor,
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
-            ),
+            title: 'Spend Smart',
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: ThemeMode.light,
+            themeAnimationDuration: const Duration(seconds: 1),
+            themeAnimationCurve: Curves.easeIn,
             home: child,
           );
         },
