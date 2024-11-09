@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:spendsmart/res/app_colors.dart';
+import 'package:spendsmart/res/app_size.dart';
 
 class AppTheme {
   static ThemeData get lightTheme => ThemeData(
@@ -129,7 +130,7 @@ class AppTheme {
     elevation: 10.h,
     margin: EdgeInsets.all(8.sp),
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.sp),
+      borderRadius: BorderRadius.circular(AppSize.defaultRadius.sp),
     ),
   );
   static CardTheme darkCardTheme = CardTheme(
@@ -146,11 +147,11 @@ class AppTheme {
     filled: true,
     fillColor: AppColors.bg,
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12.sp),
+      borderRadius: BorderRadius.circular(AppSize.defaultRadius.sp),
       borderSide: BorderSide(color: AppColors.text, width: 2.sp),
     ),
     focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12.sp),
+      borderRadius: BorderRadius.circular(AppSize.defaultRadius.sp),
       borderSide: BorderSide(color: AppColors.primary, width: 2.sp),
     ),
     labelStyle: const TextStyle(color: AppColors.text),
@@ -160,11 +161,11 @@ class AppTheme {
     filled: true,
     fillColor: AppColors.bgDark,
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12.sp),
+      borderRadius: BorderRadius.circular(AppSize.defaultRadius.sp),
       borderSide: BorderSide(color: AppColors.textDark, width: 2.sp),
     ),
     focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12.sp),
+      borderRadius: BorderRadius.circular(AppSize.defaultRadius.sp),
       borderSide: BorderSide(color: AppColors.primaryDark, width: 2.sp),
     ),
     labelStyle: const TextStyle(color: AppColors.textDark),
@@ -213,7 +214,8 @@ class AppTheme {
       foregroundColor: AppColors.onSecondary,
       backgroundColor: AppColors.primary,
       textStyle: const TextStyle(fontWeight: FontWeight.bold),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.sp)),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSize.defaultBtnRadius.sp)),
     ),
   );
 
@@ -221,13 +223,15 @@ class AppTheme {
   static final ChipThemeData chipThemeLight = ChipThemeData(
     backgroundColor: AppColors.bg,
     labelStyle: const TextStyle(color: AppColors.text),
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.sp)),
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppSize.defaultBtnRadius.sp)),
   );
 
   static final ChipThemeData chipThemeDark = ChipThemeData(
     backgroundColor: AppColors.bgDark,
     labelStyle: const TextStyle(color: AppColors.textDark),
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.sp)),
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppSize.defaultBtnRadius.sp)),
   );
 
   // Dialog Theme
@@ -236,7 +240,8 @@ class AppTheme {
     titleTextStyle: TextStyle(
         color: AppColors.text, fontSize: 18.sp, fontWeight: FontWeight.w600),
     contentTextStyle: TextStyle(color: AppColors.text, fontSize: 16.sp),
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.sp)),
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppSize.defaultRadius.sp)),
   );
 
   static DialogTheme dialogThemeDark = DialogTheme(
@@ -246,7 +251,8 @@ class AppTheme {
         fontSize: 18.sp,
         fontWeight: FontWeight.w600),
     contentTextStyle: TextStyle(color: AppColors.textDark, fontSize: 16.sp),
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.sp)),
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppSize.defaultRadius.sp)),
   );
 
   // Icon Theme

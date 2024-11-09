@@ -20,8 +20,8 @@ class AppColors {
   static const Color error = Color(0xffD9534F);
   static const Color errorDark = Color(0xffC75C5C);
 
-  static const Color secondary = Color(0xff607D8B);
-  static const Color secondaryDark = Color(0xff37474F);
+  static const Color secondary = Color(0xffA5B7C0);
+  static const Color secondaryDark = Color(0xff283339);
 
   static const Color onSecondary = Color(0xffFFFFFF);
   static const Color onSecondaryDark = Color(0xffE0E0E0);
