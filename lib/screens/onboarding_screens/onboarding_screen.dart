@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:spendsmart/res/app_screens.dart';
 import 'package:spendsmart/res/images.dart';
-import 'package:spendsmart/screens/auth_screens/login_screen.dart';
 import 'package:spendsmart/widgets/custom_scaffold.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -20,13 +21,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       topWidget: Center(
         child: AnimatedSwitcher(
           duration: animationDuration,
-          child: Text(
-            key: ValueKey(currentPage),
-            currentPage == 0
-                ? 'Welcome to Spend Smart'
-                : 'Are you ready to take control of your finance?',
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.displayLarge,
+          child: Hero(
+            tag: 'splashToOnboard',
+            child: Text(
+              key: ValueKey(currentPage),
+              currentPage == 0
+                  ? 'Welcome to Spend Smart'
+                  : 'Are you ready to take control of your finance?',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.displayLarge,
+            ),
           ),
         ),
       ),
@@ -57,11 +61,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 (index) => currentPage == index
                     ? Icon(
                         Icons.circle,
-                        size: 15.sp,
+                        size: 10.sp,
                       )
                     : Icon(
                         Icons.circle_outlined,
-                        size: 15.sp,
+                        size: 10.sp,
                       ),
               ),
             ),
@@ -72,8 +76,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const LoginScreen()));
+                      GoRouter.of(context).pushReplacementNamed(Screens.auth);
                     },
                     child: const Text('Get Started'))),
           )

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spendsmart/res/app_theme.dart';
+import 'package:spendsmart/routing/routing.dart';
 import 'package:spendsmart/screens/launch_screens/splash_screen.dart';
 
 void main() {
@@ -13,6 +14,7 @@ class MyApp extends StatefulWidget {
 
   @override
   State<MyApp> createState() => _MyAppState();
+
   static _MyAppState? of(BuildContext context) =>
       context.findAncestorStateOfType<_MyAppState>();
 }
@@ -54,14 +56,14 @@ class _MyAppState extends State<MyApp> {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) {
-          return MaterialApp(
+          return MaterialApp.router(
+            routerConfig: goRouter,
             title: 'Spend Smart',
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
-            themeMode: _themeMode,
+            themeMode: ThemeMode.light,
             themeAnimationDuration: const Duration(seconds: 1),
             themeAnimationCurve: Curves.easeIn,
-            home: child,
           );
         },
         child: const SplashScreen(),

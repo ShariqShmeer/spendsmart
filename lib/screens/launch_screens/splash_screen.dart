@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:spendsmart/res/app_screens.dart';
 import 'package:spendsmart/res/images.dart';
-import 'package:spendsmart/screens/onboarding_screens/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,8 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const OnboardingScreen()));
+      GoRouter.of(context).pushReplacementNamed(Screens.onboarding);
     });
 
     super.initState();
@@ -34,12 +34,15 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 115.h,
               color: Theme.of(context).colorScheme.onSurface,
             ),
-            Text(
-              'Spend Smart',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface,
-                fontSize: 40.sp,
-                fontWeight: FontWeight.bold,
+            Hero(
+              tag: 'splashToOnboard',
+              child: Text(
+                'Spend Smart',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontSize: 40.sp,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],
