@@ -14,6 +14,10 @@ class Screens {
 
   static String categoriesMain = 'categoriesMainScreen';
   static String category = 'categoryScreen';
+  static String addCategoryAmount = 'addCategoryAmountScreen';
+  static String savings = 'SavingsScreen';
+  static String savingCategory = 'SavingCategoryScreen';
+  static String addSavings = 'AddSavingsScreen';
 
   // TabRoutes routes of profile
   static String profileMain = 'profileMainScreen';

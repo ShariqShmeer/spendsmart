@@ -55,7 +55,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       roundedBodyPercentage: 75,
       appBar: AppBar(
         title: Text('Edit Profile'),
-        centerTitle: true,
       ),
       topWidget: ProfileWidget(
         name: 'Muhammad Shariq Shmeer',

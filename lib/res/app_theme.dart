@@ -1,54 +1,56 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:spendsmart/res/app_colors.dart';
 import 'package:spendsmart/res/app_size.dart';
 
 class AppTheme {
-  static ThemeData get lightTheme => ThemeData(
-      useMaterial3: true,
-      colorScheme: lightColorScheme,
-      textTheme: textTheme,
-      primaryColor: AppColors.primary,
-      primaryColorDark: AppColors.text,
-      scaffoldBackgroundColor: AppColors.bg,
-      cardTheme: lightCardTheme,
-      highlightColor: AppColors.inverse,
-      cardColor: AppColors.bg,
-      inputDecorationTheme: lightInputDecorationTheme,
-      dividerColor: AppColors.text.withOpacity(0.2),
-      appBarTheme: appBarThemeLight,
-      textButtonTheme: textButtonTheme,
-      elevatedButtonTheme: elevatedButtonTheme,
-      chipTheme: chipThemeLight,
-      dividerTheme: dividerTheme,
-      dialogTheme: dialogThemeLight,
-      iconTheme: iconThemeLight,
-      datePickerTheme: datePickerThemeLight);
+  // Light Theme
+  static ThemeData lightTheme({required double sizeMultiplier}) => ThemeData(
+        useMaterial3: true,
+        colorScheme: lightColorScheme,
+        textTheme: textThemeBoth(sizeMultiplier),
+        primaryColor: AppColors.primary,
+        primaryColorDark: AppColors.text,
+        scaffoldBackgroundColor: AppColors.bg,
+        cardTheme: lightCardTheme(sizeMultiplier),
+        highlightColor: AppColors.inverse,
+        cardColor: AppColors.bg,
+        inputDecorationTheme: lightInputDecorationTheme(sizeMultiplier),
+        dividerColor: AppColors.text.withOpacity(0.2),
+        appBarTheme: appBarThemeLight(sizeMultiplier),
+        textButtonTheme: textButtonTheme,
+        elevatedButtonTheme: elevatedButtonTheme(sizeMultiplier),
+        chipTheme: chipThemeLight(sizeMultiplier),
+        dividerTheme: dividerTheme,
+        dialogTheme: dialogThemeLight(sizeMultiplier),
+        iconTheme: iconThemeLight(sizeMultiplier),
+        datePickerTheme: datePickerThemeLight(sizeMultiplier),
+      );
 
-  static ThemeData get darkTheme => ThemeData(
-      useMaterial3: true,
-      colorScheme: darkColorScheme,
-      textTheme: textTheme,
-      primaryColor: AppColors.primaryDark,
-      primaryColorDark: AppColors.textDark,
-      scaffoldBackgroundColor: AppColors.bgDark,
-      cardTheme: darkCardTheme,
-      highlightColor: AppColors.inverseDark,
-      cardColor: AppColors.bgDark,
-      inputDecorationTheme: darkInputDecorationTheme,
-      dividerColor: AppColors.textDark.withOpacity(0.2),
-      appBarTheme: appBarThemeDark,
-      textButtonTheme: textButtonTheme,
-      elevatedButtonTheme: elevatedButtonTheme,
-      chipTheme: chipThemeDark,
-      dividerTheme: dividerTheme,
-      dialogTheme: dialogThemeDark,
-      iconTheme: iconThemeDark,
-      datePickerTheme: datePickerThemeDark);
+  // Dark Theme
+  static ThemeData darkTheme({required double sizeMultiplier}) => ThemeData(
+        useMaterial3: true,
+        colorScheme: darkColorScheme,
+        textTheme: textThemeBoth(sizeMultiplier),
+        primaryColor: AppColors.primaryDark,
+        primaryColorDark: AppColors.textDark,
+        scaffoldBackgroundColor: AppColors.bgDark,
+        cardTheme: darkCardTheme(sizeMultiplier),
+        highlightColor: AppColors.inverseDark,
+        cardColor: AppColors.bgDark,
+        inputDecorationTheme: darkInputDecorationTheme(sizeMultiplier),
+        dividerColor: AppColors.textDark.withOpacity(0.2),
+        appBarTheme: appBarThemeDark(sizeMultiplier),
+        textButtonTheme: textButtonTheme,
+        elevatedButtonTheme: elevatedButtonTheme(sizeMultiplier),
+        chipTheme: chipThemeDark(sizeMultiplier),
+        dividerTheme: dividerTheme,
+        dialogTheme: dialogThemeDark(sizeMultiplier),
+        iconTheme: iconThemeDark(sizeMultiplier),
+        datePickerTheme: datePickerThemeDark(sizeMultiplier),
+      );
 
+  // Light and Dark Color Schemes
   static const ColorScheme lightColorScheme = ColorScheme.light(
-    brightness: Brightness.light,
     primary: AppColors.primary,
     error: AppColors.error,
     surface: AppColors.bg,
@@ -57,10 +59,9 @@ class AppTheme {
     onSecondary: AppColors.onSecondary,
     shadow: AppColors.shadow,
     inversePrimary: AppColors.inverse,
-    surfaceTint: AppColors.primary,
   );
+
   static const ColorScheme darkColorScheme = ColorScheme.dark(
-    brightness: Brightness.dark,
     primary: AppColors.primaryDark,
     error: AppColors.errorDark,
     surface: AppColors.bgDark,
@@ -69,138 +70,150 @@ class AppTheme {
     onSecondary: AppColors.onSecondaryDark,
     shadow: AppColors.shadowDark,
     inversePrimary: AppColors.inverseDark,
-    surfaceTint: AppColors.primaryDark,
-  );
-  static TextTheme textTheme = TextTheme(
-    displayLarge: GoogleFonts.roboto(
-      fontWeight: FontWeight.w700,
-      fontSize: 28.sp,
-      letterSpacing: 0.15,
-      height: 1.2,
-    ),
-    displayMedium: GoogleFonts.roboto(
-      fontWeight: FontWeight.w500,
-      fontSize: 18.sp,
-      letterSpacing: 0.15,
-      height: 1.4,
-    ),
-    displaySmall: GoogleFonts.roboto(
-      fontWeight: FontWeight.w500,
-      fontSize: 14.sp,
-      letterSpacing: 0.1,
-      height: 1.3,
-    ),
-    bodyLarge: GoogleFonts.roboto(
-      fontWeight: FontWeight.w400,
-      fontSize: 16.sp,
-      letterSpacing: 0.5,
-      height: 1.5,
-    ),
-    bodyMedium: GoogleFonts.roboto(
-      fontWeight: FontWeight.w400,
-      fontSize: 14.sp,
-      letterSpacing: 0.25,
-      height: 1.4,
-    ),
-    bodySmall: GoogleFonts.roboto(
-      fontWeight: FontWeight.w400,
-      fontSize: 12.sp,
-      letterSpacing: 0.4,
-      height: 1.3,
-    ),
-    labelLarge: GoogleFonts.roboto(
-      fontWeight: FontWeight.w500,
-      fontSize: 14.sp,
-      letterSpacing: 0.5,
-    ),
-    labelMedium: GoogleFonts.roboto(
-      fontWeight: FontWeight.w400,
-      fontSize: 12.sp,
-      letterSpacing: 0.4,
-    ),
-    labelSmall: GoogleFonts.roboto(
-      fontWeight: FontWeight.w400,
-      fontSize: 10.sp,
-      letterSpacing: 0.2,
-    ),
-  );
-  // Card Theme
-  static CardTheme lightCardTheme = CardTheme(
-    color: AppColors.bg,
-    elevation: 10.h,
-    margin: EdgeInsets.all(8.sp),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(AppSize.defaultRadius.sp),
-    ),
-  );
-  static CardTheme darkCardTheme = CardTheme(
-    color: AppColors.bgDark,
-    elevation: 10.h,
-    margin: EdgeInsets.all(8.sp),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.sp),
-    ),
   );
 
-  // Input Decoration Theme
-  static InputDecorationTheme lightInputDecorationTheme = InputDecorationTheme(
-    filled: true,
-    fillColor: AppColors.bg,
-    contentPadding: EdgeInsets.symmetric(vertical: 2.sp, horizontal: 10.sp),
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(AppSize.defaultRadius.sp),
-      borderSide: BorderSide(color: AppColors.text, width: 2.sp),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(AppSize.defaultRadius.sp),
-      borderSide: BorderSide(color: AppColors.primary, width: 2.sp),
-    ),
-    labelStyle: const TextStyle(color: AppColors.text),
-    hintStyle: TextStyle(color: AppColors.text.withOpacity(0.6)),
-  );
-  static InputDecorationTheme darkInputDecorationTheme = InputDecorationTheme(
-    filled: true,
-    fillColor: AppColors.bgDark,
-    contentPadding: EdgeInsets.symmetric(vertical: 2.sp, horizontal: 10.sp),
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(AppSize.defaultRadius.sp),
-      borderSide: BorderSide(color: AppColors.textDark, width: 2.sp),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(AppSize.defaultRadius.sp),
-      borderSide: BorderSide(color: AppColors.primaryDark, width: 2.sp),
-    ),
-    labelStyle: const TextStyle(color: AppColors.textDark),
-    hintStyle: TextStyle(color: AppColors.textDark.withOpacity(0.6)),
-  );
+  // Text Theme
+  static TextTheme textThemeBoth(double sizeMultiplier) => TextTheme(
+        displayLarge: _textStyle(
+          28,
+          FontWeight.w700,
+          1.2,
+          0.15,
+          sizeMultiplier,
+        ),
+        displayMedium: _textStyle(
+          18,
+          FontWeight.w500,
+          1.4,
+          0.15,
+          sizeMultiplier,
+        ),
+        displaySmall: _textStyle(
+          14,
+          FontWeight.w500,
+          1.3,
+          0.1,
+          sizeMultiplier,
+        ),
+        bodyLarge: _textStyle(
+          16,
+          FontWeight.w400,
+          1.5,
+          0.5,
+          sizeMultiplier,
+        ),
+        bodyMedium: _textStyle(
+          14,
+          FontWeight.w400,
+          1.4,
+          0.25,
+          sizeMultiplier,
+        ),
+        bodySmall: _textStyle(
+          12,
+          FontWeight.w400,
+          1.3,
+          0.4,
+          sizeMultiplier,
+        ),
+        labelLarge: _textStyle(
+          14,
+          FontWeight.w500,
+          null,
+          0.5,
+          sizeMultiplier,
+        ),
+        labelMedium: _textStyle(
+          12,
+          FontWeight.w400,
+          null,
+          0.4,
+          sizeMultiplier,
+        ),
+        labelSmall: _textStyle(
+          10,
+          FontWeight.w400,
+          null,
+          0.2,
+          sizeMultiplier,
+        ),
+      );
 
-  // Divider Theme
-  static const DividerThemeData dividerTheme = DividerThemeData(
-    color: AppColors.shadow,
-    thickness: 1,
-    space: 32,
-  );
+  static TextStyle _textStyle(double size, FontWeight weight, double? height,
+      double letterSpacing, double sizeMultiplier) {
+    return TextStyle(
+      fontSize: size * sizeMultiplier,
+      fontWeight: weight,
+      height: height,
+      letterSpacing: letterSpacing,
+    );
+  }
 
-  // AppBar Theme
-  static AppBarTheme appBarThemeLight = AppBarTheme(
-    backgroundColor: AppColors.primary,
-    titleTextStyle: TextStyle(
-      color: AppColors.bg,
-      fontSize: 20.sp,
-      fontWeight: FontWeight.w600,
-    ),
-    iconTheme: const IconThemeData(color: AppColors.bg),
-  );
+  // Card Themes
+  static CardTheme lightCardTheme(double sizeMultiplier) =>
+      _cardTheme(AppColors.bg, sizeMultiplier);
+  static CardTheme darkCardTheme(double sizeMultiplier) =>
+      _cardTheme(AppColors.bgDark, sizeMultiplier);
 
-  static AppBarTheme appBarThemeDark = AppBarTheme(
-    backgroundColor: AppColors.primaryDark,
-    titleTextStyle: TextStyle(
-      color: AppColors.bgDark,
-      fontSize: 20.sp,
-      fontWeight: FontWeight.w600,
-    ),
-    iconTheme: const IconThemeData(color: AppColors.bgDark),
-  );
+  static CardTheme _cardTheme(Color color, double sizeMultiplier) => CardTheme(
+        color: color,
+        elevation: 10 * sizeMultiplier,
+        margin: EdgeInsets.all(8 * sizeMultiplier),
+        shape: RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.circular(AppSize.defaultRadius * sizeMultiplier),
+        ),
+      );
+
+  // Input Decoration Themes
+  static InputDecorationTheme lightInputDecorationTheme(
+          double sizeMultiplier) =>
+      _inputDecorationTheme(
+          AppColors.bg, AppColors.text, AppColors.primary, sizeMultiplier);
+  static InputDecorationTheme darkInputDecorationTheme(double sizeMultiplier) =>
+      _inputDecorationTheme(AppColors.bgDark, AppColors.textDark,
+          AppColors.primaryDark, sizeMultiplier);
+
+  static InputDecorationTheme _inputDecorationTheme(Color fillColor,
+          Color borderColor, Color focusedBorderColor, double sizeMultiplier) =>
+      InputDecorationTheme(
+        filled: true,
+        fillColor: fillColor,
+        contentPadding: EdgeInsets.symmetric(
+            vertical: 2 * sizeMultiplier, horizontal: 10 * sizeMultiplier),
+        border: OutlineInputBorder(
+          borderRadius:
+              BorderRadius.circular(AppSize.defaultRadius * sizeMultiplier),
+          borderSide: BorderSide(color: borderColor, width: 2 * sizeMultiplier),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius:
+              BorderRadius.circular(AppSize.defaultRadius * sizeMultiplier),
+          borderSide:
+              BorderSide(color: focusedBorderColor, width: 2 * sizeMultiplier),
+        ),
+        labelStyle: TextStyle(color: borderColor),
+        hintStyle: TextStyle(color: borderColor.withOpacity(0.6)),
+      );
+
+  // AppBar Themes
+  static AppBarTheme appBarThemeLight(double sizeMultiplier) =>
+      _appBarTheme(AppColors.primary, AppColors.bg, sizeMultiplier);
+  static AppBarTheme appBarThemeDark(double sizeMultiplier) =>
+      _appBarTheme(AppColors.primaryDark, AppColors.bgDark, sizeMultiplier);
+
+  static AppBarTheme _appBarTheme(
+          Color bgColor, Color titleColor, double sizeMultiplier) =>
+      AppBarTheme(
+        backgroundColor: bgColor,
+        titleTextStyle: TextStyle(
+          color: titleColor,
+          fontSize: 20 * sizeMultiplier,
+          fontWeight: FontWeight.w600,
+        ),
+        iconTheme: IconThemeData(color: titleColor),
+        centerTitle: true,
+      );
 
   // Button Themes
   static final TextButtonThemeData textButtonTheme = TextButtonThemeData(
@@ -210,101 +223,94 @@ class AppTheme {
     ),
   );
 
-  static final ElevatedButtonThemeData elevatedButtonTheme =
+  static ElevatedButtonThemeData elevatedButtonTheme(double sizeMultiplier) =>
       ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      foregroundColor: AppColors.onSecondary,
-      backgroundColor: AppColors.primary,
-      textStyle: const TextStyle(fontWeight: FontWeight.bold),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppSize.defaultBtnRadius.sp)),
-    ),
+        style: ElevatedButton.styleFrom(
+          foregroundColor: AppColors.onSecondary,
+          backgroundColor: AppColors.primary,
+          textStyle: const TextStyle(fontWeight: FontWeight.bold),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+                AppSize.defaultBtnRadius * sizeMultiplier),
+          ),
+        ),
+      );
+
+  // Chip Themes
+  static ChipThemeData chipThemeLight(double sizeMultiplier) =>
+      _chipTheme(AppColors.bg, AppColors.text, sizeMultiplier);
+  static ChipThemeData chipThemeDark(double sizeMultiplier) =>
+      _chipTheme(AppColors.bgDark, AppColors.textDark, sizeMultiplier);
+
+  static ChipThemeData _chipTheme(
+          Color bgColor, Color textColor, double sizeMultiplier) =>
+      ChipThemeData(
+        backgroundColor: bgColor,
+        labelStyle: TextStyle(color: textColor),
+        shape: RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.circular(AppSize.defaultBtnRadius * sizeMultiplier),
+        ),
+      );
+
+  // Divider Theme
+  static const DividerThemeData dividerTheme = DividerThemeData(
+    color: AppColors.shadow,
+    thickness: 1,
+    space: 32,
   );
 
-  // Chip Theme
-  static final ChipThemeData chipThemeLight = ChipThemeData(
-    backgroundColor: AppColors.bg,
-    labelStyle: const TextStyle(color: AppColors.text),
-    shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppSize.defaultBtnRadius.sp)),
-  );
+  // Dialog Themes
+  static DialogTheme dialogThemeLight(double sizeMultiplier) =>
+      _dialogTheme(AppColors.bg, AppColors.text, sizeMultiplier);
+  static DialogTheme dialogThemeDark(double sizeMultiplier) =>
+      _dialogTheme(AppColors.bgDark, AppColors.textDark, sizeMultiplier);
 
-  static final ChipThemeData chipThemeDark = ChipThemeData(
-    backgroundColor: AppColors.bgDark,
-    labelStyle: const TextStyle(color: AppColors.textDark),
-    shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppSize.defaultBtnRadius.sp)),
-  );
+  static DialogTheme _dialogTheme(
+          Color bgColor, Color textColor, double sizeMultiplier) =>
+      DialogTheme(
+        backgroundColor: bgColor,
+        titleTextStyle: TextStyle(
+            color: textColor,
+            fontSize: 18 * sizeMultiplier,
+            fontWeight: FontWeight.w600),
+        contentTextStyle:
+            TextStyle(color: textColor, fontSize: 16 * sizeMultiplier),
+        shape: RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.circular(AppSize.defaultRadius * sizeMultiplier),
+        ),
+      );
 
-  // Dialog Theme
-  static DialogTheme dialogThemeLight = DialogTheme(
-    backgroundColor: AppColors.bg,
-    titleTextStyle: TextStyle(
-        color: AppColors.text, fontSize: 18.sp, fontWeight: FontWeight.w600),
-    contentTextStyle: TextStyle(color: AppColors.text, fontSize: 16.sp),
-    shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppSize.defaultRadius.sp)),
-  );
-
-  static DialogTheme dialogThemeDark = DialogTheme(
-    backgroundColor: AppColors.bgDark,
-    titleTextStyle: TextStyle(
+  // Icon Themes
+  static IconThemeData iconThemeLight(double sizeMultiplier) => IconThemeData(
+        color: AppColors.text,
+        size: 24 * sizeMultiplier,
+      );
+  static IconThemeData iconThemeDark(double sizeMultiplier) => IconThemeData(
         color: AppColors.textDark,
-        fontSize: 18.sp,
-        fontWeight: FontWeight.w600),
-    contentTextStyle: TextStyle(color: AppColors.textDark, fontSize: 16.sp),
-    shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppSize.defaultRadius.sp)),
-  );
+        size: 24 * sizeMultiplier,
+      );
 
-  // Icon Theme
-  static IconThemeData iconThemeLight = IconThemeData(
-    color: AppColors.text,
-    size: 24.sp,
-  );
+  // Date Picker Themes
+  static DatePickerThemeData datePickerThemeLight(double sizeMultiplier) =>
+      _datePickerTheme(
+          AppColors.bg, AppColors.primary, AppColors.text, sizeMultiplier);
+  static DatePickerThemeData datePickerThemeDark(double sizeMultiplier) =>
+      _datePickerTheme(AppColors.bgDark, AppColors.primaryDark,
+          AppColors.textDark, sizeMultiplier);
 
-  static IconThemeData iconThemeDark = IconThemeData(
-    color: AppColors.textDark,
-    size: 24.sp,
-  );
-  // Date Picker Theme
-  static DatePickerThemeData datePickerThemeLight = DatePickerThemeData(
-    backgroundColor: AppColors.bg,
-    headerBackgroundColor: AppColors.primary,
-
-    yearStyle: TextStyle(
-        color: AppColors.text, fontSize: 18.sp, fontWeight: FontWeight.w600),
-    dayStyle: TextStyle(
-        color: AppColors.text, fontSize: 16.sp, fontWeight: FontWeight.normal),
-    weekdayStyle:
-        TextStyle(color: AppColors.text.withOpacity(0.7), fontSize: 14.sp),
-    // monthStyle: TextStyle(
-    //     color: AppColors.text, fontSize: 16.sp, fontWeight: FontWeight.w600),
-    rangeSelectionBackgroundColor: AppColors.primary.withOpacity(0.2),
-
-    shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppSize.defaultRadius.sp)),
-  );
-
-  static DatePickerThemeData datePickerThemeDark = DatePickerThemeData(
-    backgroundColor: AppColors.bgDark,
-    headerBackgroundColor: AppColors.primaryDark,
-
-    yearStyle: TextStyle(
-        color: AppColors.textDark,
-        fontSize: 18.sp,
-        fontWeight: FontWeight.w600),
-    dayStyle: TextStyle(
-        color: AppColors.textDark,
-        fontSize: 16.sp,
-        fontWeight: FontWeight.normal),
-    weekdayStyle:
-        TextStyle(color: AppColors.textDark.withOpacity(0.7), fontSize: 14.sp),
-    // monthStyle: TextStyle(
-    //     color: AppColors.textDark, fontSize: 16.sp, fontWeight: FontWeight.w600),
-    rangeSelectionBackgroundColor: AppColors.primaryDark.withOpacity(0.2),
-
-    shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppSize.defaultRadius.sp)),
-  );
+  static DatePickerThemeData _datePickerTheme(Color bgColor, Color headerColor,
+          Color textColor, double sizeMultiplier) =>
+      DatePickerThemeData(
+        backgroundColor: bgColor,
+        headerBackgroundColor: headerColor,
+        yearStyle: TextStyle(
+            color: textColor,
+            fontSize: 18 * sizeMultiplier,
+            fontWeight: FontWeight.w600),
+        dayStyle: TextStyle(color: textColor, fontSize: 16 * sizeMultiplier),
+        weekdayStyle: TextStyle(
+            color: textColor.withOpacity(0.7), fontSize: 14 * sizeMultiplier),
+      );
 }

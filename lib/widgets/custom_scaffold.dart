@@ -9,6 +9,7 @@ class CustomScaffold extends StatelessWidget {
   final bool? resizeToAvoidBottomInset;
   final bool addTopSafeArea;
   final bool extendBodyBehindAppBar;
+  final Color? backgroundColor;
 
   const CustomScaffold(
       {super.key,
@@ -18,11 +19,13 @@ class CustomScaffold extends StatelessWidget {
       this.appBar,
       this.resizeToAvoidBottomInset,
       this.addTopSafeArea = false,
-      this.extendBodyBehindAppBar = false});
+      this.extendBodyBehindAppBar = false,
+      this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       extendBodyBehindAppBar: extendBodyBehindAppBar,
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       appBar: appBar,
@@ -37,7 +40,7 @@ class CustomScaffold extends StatelessWidget {
             if (roundedBodyPercentage < 100 && topWidget != null)
               Expanded(
                   flex: 100 - roundedBodyPercentage,
-                  child: topWidget ?? const SizedBox()),
+                  child: SizedBox(child: topWidget)),
             Expanded(
               flex: roundedBodyPercentage,
               child: DecoratedBox(

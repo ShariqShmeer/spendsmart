@@ -1,238 +1,91 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spendsmart/res/app_size.dart';
-import 'package:spendsmart/res/images.dart';
 import 'package:spendsmart/utils/extensions/integer_extensions.dart';
-import 'package:spendsmart/widgets/custom_image_icon.dart';
 
-class BalanceOverView extends StatefulWidget {
+class BalanceOverView extends StatelessWidget {
   final double totalAmount;
-  final double expenseAmount;
+  final String totalAmountTitle;
+  final Widget totalAmountIcon;
+  final double amount;
+  final String amountTitle;
+  final Widget amountIcon;
+  final bool isExpense;
+  final bool totalAmountIsExpense;
 
   const BalanceOverView({
     super.key,
     required this.totalAmount,
-    required this.expenseAmount,
+    required this.amount,
+    required this.isExpense,
+    required this.totalAmountTitle,
+    required this.totalAmountIcon,
+    required this.amountTitle,
+    required this.amountIcon,
+    this.totalAmountIsExpense = false,
   });
-
-  @override
-  State<BalanceOverView> createState() => _BalanceOverViewState();
-}
-
-class _BalanceOverViewState extends State<BalanceOverView>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _expenseAnimation;
-  double _previousExpense = 0; // Track previous expense amount
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 1500),
-      vsync: this,
-    );
-    // Initialize animation in initState
-    _expenseAnimation = Tween<double>(
-      begin: 0,
-      end: widget.expenseAmount,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeOut,
-    ));
-    _previousExpense = widget.expenseAmount;
-    _controller.forward();
-  }
-
-  void _updateAnimation() {
-    _expenseAnimation = Tween<double>(
-      begin: _previousExpense,
-      end: widget.expenseAmount,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeOut,
-    ));
-    _previousExpense = widget.expenseAmount;
-    _controller.forward(from: 0);
-  }
-
-  @override
-  void didUpdateWidget(BalanceOverView oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.expenseAmount != widget.expenseAmount ||
-        oldWidget.totalAmount != widget.totalAmount) {
-      _updateAnimation();
-    }
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  String _formatCurrency(double amount) {
-    return '\$${amount.toStringAsFixed(1)}';
-  }
-
-  Color _getProgressColor(double percentage) {
-    if (percentage < 30) return Colors.green;
-    if (percentage < 70) return Colors.orange;
-    return Colors.red;
-  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.0.sp),
+      padding: EdgeInsets.all(AppSize.defaultPadding.sp),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 3.h),
+            padding: EdgeInsets.symmetric(
+                horizontal: AppSize.defaultPadding.w, vertical: 10.h),
             child: Row(
               children: [
                 Expanded(
                   flex: 5,
                   child: _amountDisplay(
-                      icon: Icon(Icons.account_balance_wallet_outlined),
-                      title: 'Total Balance',
-                      amount: widget.totalAmount),
+                    icon: totalAmountIcon,
+                    title: totalAmountTitle,
+                    amount: totalAmount,
+                    isExpense: totalAmountIsExpense,
+                    context: context,
+                  ),
                 ),
                 Expanded(
                   child: Center(
                     child: SizedBox(
-                        width: 2.sp,
-                        height: 50.sp,
-                        child: ColoredBox(color: theme.colorScheme.shadow)),
+                      width: 2.sp,
+                      height: 60.sp,
+                      child: ColoredBox(color: theme.colorScheme.shadow),
+                    ),
                   ),
                 ),
                 Expanded(
                   flex: 5,
                   child: _amountDisplay(
-                      icon: CustomImageIcon(
-                        imgPath: Images.expenseIcon,
-                        size: 18.sp,
-                      ),
-                      title: 'Total Expense',
-                      amount: widget.expenseAmount,
-                      isExpense: true),
+                    icon: amountIcon,
+                    title: amountTitle,
+                    amount: amount,
+                    isExpense: isExpense,
+                    context: context,
+                  ),
                 )
               ],
             ),
           ),
-          AnimatedBuilder(
-            animation: _controller,
-            builder: (context, child) {
-              final currentExpense = _expenseAnimation.value;
-              final currentPercentage =
-                  (currentExpense / widget.totalAmount * 100).clamp(0.0, 100.0);
-
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    height: 20.h,
-                    child: Stack(
-                      children: [
-                        // Background pill
-                        Positioned.fill(
-                          child: Padding(
-                            padding: EdgeInsets.all(2.sp),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: theme.colorScheme.onSecondary,
-                                borderRadius: BorderRadius.circular(
-                                    AppSize.defaultRadius.r),
-                              ),
-                            ),
-                          ),
-                        ),
-
-                        // Progress bar
-                        Positioned.fill(
-                          child: Padding(
-                            padding: EdgeInsets.all(2.sp),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: FractionallySizedBox(
-                                widthFactor: currentPercentage / 100,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: _getProgressColor(currentPercentage),
-                                    borderRadius: BorderRadius.circular(
-                                        AppSize.defaultRadius.r),
-                                  ),
-                                  alignment: Alignment.center,
-                                  padding: EdgeInsets.only(left: 5.w),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        // Amount text
-                        Positioned(
-                          left: 10,
-                          top: 0,
-                          bottom: 0,
-                          child: Center(
-                            child: Text(
-                              '${currentPercentage.toStringAsFixed(0)}%',
-                            ),
-                          ),
-                        ),
-                        // Amount text
-                        Positioned(
-                          right: 16,
-                          top: 0,
-                          bottom: 0,
-                          child: Center(
-                            child: Text(
-                              _formatCurrency(widget.totalAmount),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  5.hSpace,
-                  // Status message
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.check_circle_outline,
-                        color: _getProgressColor(currentPercentage),
-                      ),
-                      8.wSpace,
-                      Expanded(
-                        child: Text(
-                          '${currentPercentage.toStringAsFixed(0)}% Of Your Expenses, ${currentPercentage < 50 ? 'Looks Good.' : 'Watch Your Spending.'}',
-                          style: TextStyle(
-                            color: _getProgressColor(currentPercentage),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              );
-            },
+          AnimatedProgressBar(
+            totalAmount: totalAmount,
+            amount: amount,
           ),
         ],
       ),
     );
   }
 
-  Widget _amountDisplay(
-      {required Widget icon,
-      required String title,
-      required double amount,
-      bool isExpense = false}) {
+  Widget _amountDisplay({
+    required Widget icon,
+    required String title,
+    required double amount,
+    bool isExpense = false,
+    required BuildContext context,
+  }) {
     final theme = Theme.of(context);
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -241,9 +94,12 @@ class _BalanceOverViewState extends State<BalanceOverView>
           children: [
             icon,
             5.wSpace,
-            Text(
-              title,
-              style: theme.textTheme.titleMedium,
+            Expanded(
+              child: Text(
+                title,
+                style: theme.textTheme.titleMedium,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ],
         ),
@@ -253,5 +109,101 @@ class _BalanceOverViewState extends State<BalanceOverView>
         )
       ],
     );
+  }
+
+  String _formatCurrency(double amount) {
+    return '\$${amount.toStringAsFixed(2)}';
+  }
+}
+
+class AnimatedProgressBar extends StatelessWidget {
+  final double totalAmount;
+  final double amount;
+
+  const AnimatedProgressBar({
+    super.key,
+    required this.totalAmount,
+    required this.amount,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    assert(totalAmount > 0, 'Total amount must be greater than zero');
+    assert(amount >= 0, 'Amount cannot be negative');
+
+    final percentage = (amount / totalAmount).clamp(0.0, 1.0);
+
+    return TweenAnimationBuilder<double>(
+      tween: Tween<double>(begin: 0, end: percentage),
+      duration: const Duration(milliseconds: 1000),
+      curve: Curves.easeInOut,
+      builder: (context, value, child) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: 50.sp,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                color: theme.colorScheme.onSecondary,
+                borderRadius:
+                    BorderRadius.circular(AppSize.defaultBtnRadius.sp),
+              ),
+              child: Stack(
+                children: [
+                  // Progress Bar
+                  FractionallySizedBox(
+                    widthFactor: value,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: _getProgressColor(value * 100),
+                        borderRadius:
+                            BorderRadius.circular(AppSize.defaultBtnRadius.sp),
+                      ),
+                    ),
+                  ),
+                  // Percentage Text
+                  Center(
+                    child: Text(
+                      '${(value * 100).toStringAsFixed(1)}%',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            10.hSpace,
+            Row(
+              children: [
+                Icon(
+                  Icons.check_circle_outline,
+                  color: _getProgressColor(value * 100),
+                ),
+                8.wSpace,
+                Expanded(
+                  child: Text(
+                    '${(value * 100).toStringAsFixed(2)}% Of Your Expenses, ${(value * 100) < 50 ? 'Looks Good.' : 'Watch Your Spending.'}',
+                    style: TextStyle(
+                      color: _getProgressColor(value * 100),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Color _getProgressColor(double percentage) {
+    if (percentage < 30) return Colors.green;
+    if (percentage < 70) return Colors.orange;
+    return Colors.red;
   }
 }

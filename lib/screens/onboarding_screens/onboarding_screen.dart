@@ -14,7 +14,7 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   int currentPage = 0;
-  Duration animationDuration = const Duration(milliseconds: 300);
+  Duration animationDuration = const Duration(milliseconds: 500);
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -39,10 +39,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           Expanded(
             child: PageView(
               onPageChanged: (pageNumber) {
-                print('Your was on page $currentPage');
-                print('Your ore on page $pageNumber');
                 currentPage = pageNumber;
-                print(' value of currentPage $currentPage');
                 setState(() {});
               },
               children: [
@@ -71,7 +68,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 30.w),
+            padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 30.w),
             child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -90,17 +87,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       alignment: Alignment.center,
       children: [
         CircleAvatar(
-          radius: 60.h,
+          radius: 140.h,
           backgroundColor:
               Theme.of(context).colorScheme.onSecondary.withOpacity(0.6),
         ),
         Padding(
           padding: EdgeInsets.only(
-            bottom: 20.h,
+            bottom: 40.h,
           ),
           child: Image.asset(
-            height: 140.h,
-            width: 140.h,
+            height: 340.h,
+            width: 340.h,
             imageSrc,
           ),
         ),

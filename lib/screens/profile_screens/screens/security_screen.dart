@@ -10,7 +10,6 @@ class SecurityScreen extends StatelessWidget {
       roundedBodyPercentage: 75,
       appBar: AppBar(
         title: Text('Security'),
-        centerTitle: true,
       ),
       topWidget: SizedBox(),
       roundedBodyWidget: Center(child: Text('Security')),

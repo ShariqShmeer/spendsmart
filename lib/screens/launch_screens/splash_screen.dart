@@ -34,15 +34,12 @@ class _SplashScreenState extends State<SplashScreen> {
               height: 115.h,
               color: Theme.of(context).colorScheme.onSurface,
             ),
-            Hero(
-              tag: 'splashToOnboard',
-              child: Text(
-                'Spend Smart',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSurface,
-                  fontSize: 40.sp,
-                  fontWeight: FontWeight.bold,
-                ),
+            Text(
+              'Spend Smart',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurface,
+                fontSize: 40.sp,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ],

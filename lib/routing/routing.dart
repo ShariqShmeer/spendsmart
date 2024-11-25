@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spendsmart/models/category_models/category_item.dart';
+import 'package:spendsmart/models/category_models/saving_category_items.dart';
 import 'package:spendsmart/res/app_screens.dart';
 import 'package:spendsmart/routing/profile_routes.dart';
 import 'package:spendsmart/screens/analisis_screens/analysis_main_screen.dart';
@@ -19,7 +20,7 @@ import 'package:spendsmart/screens/transactions_screens/transactions_main_screen
 import '../screens/launch_screens/splash_screen.dart';
 import 'categories_routes.dart';
 
-final _rootNavigatorKey = GlobalKey<NavigatorState>();
+final rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorHomeKey = GlobalKey<NavigatorState>(debugLabel: 'home');
 final _shellNavigatorAnalysisKey =
     GlobalKey<NavigatorState>(debugLabel: 'analysis');
@@ -29,13 +30,14 @@ final _shellNavigatorCategoryKey =
     GlobalKey<NavigatorState>(debugLabel: 'category');
 final _shellNavigatorProfileKey =
     GlobalKey<NavigatorState>(debugLabel: 'profile');
+
 final goRouter = GoRouter(
   initialLocation: '/${Screens.splash}',
   // * Passing a navigatorKey causes an issue on hot reload:
   // * https://github.com/flutter/flutter/issues/113757#issuecomment-1518421380
   // * However it's still necessary otherwise the navigator pops back to
   // * root on hot reload
-  navigatorKey: _rootNavigatorKey,
+  navigatorKey: rootNavigatorKey,
   debugLogDiagnostics: true,
   routes: [
     GoRoute(
@@ -79,41 +81,7 @@ final goRouter = GoRouter(
       builder: (context, state, navigationShell) {
         // print("state.fullPath :: ${state.fullPath}");
 
-        return BackButtonListener(
-          onBackButtonPressed: () async {
-            // Check if the drawer is open and close it
-            final scaffoldState = Scaffold.maybeOf(context);
-            if (scaffoldState != null && scaffoldState.isDrawerOpen) {
-              Navigator.of(context).pop(); // Close the drawer
-              return true;
-            }
-
-            // Check if any modal bottom sheet or popup is open and close it
-            if (Navigator.of(context, rootNavigator: true).canPop()) {
-              Navigator.of(context, rootNavigator: true)
-                  .pop(); // Close the modal/popup
-              return true;
-            }
-
-            // Check if the current screen can be popped
-            if (GoRouter.of(context).canPop()) {
-              GoRouter.of(context).pop(); // Pop the current screen
-              return true;
-            }
-            if (navigationShell.currentIndex != 0) {
-              navigationShell.goBranch(0, initialLocation: true);
-              return true;
-            }
-            print(
-                'BackButtonListener : ------------------------------------------------------');
-            if (!isPopUpShow) {
-              isPopUpShow = true;
-              return await showExitConfirmationDialog(context) ?? true;
-            }
-            return true;
-          },
-          child: MainScreen(navigationShell: navigationShell),
-        );
+        return MainScreen(navigationShell: navigationShell);
       },
       branches: [
         StatefulShellBranch(
@@ -200,6 +168,61 @@ final goRouter = GoRouter(
   extraCodec: const CustomGoRouterCodec(),
 );
 
+// Create a codec that implements Codec<Object?, Object?>
+class CustomGoRouterCodec extends Codec<Object?, Object?> {
+  const CustomGoRouterCodec();
+  // Need to implement encoder and decoder
+  @override
+  final Converter<Object?, Object?> encoder = const _CustomEncoder();
+  @override
+  final Converter<Object?, Object?> decoder = const _CustomDecoder();
+}
+
+// Implement the encoder
+class _CustomEncoder extends Converter<Object?, Object?> {
+  const _CustomEncoder();
+  @override
+  Object? convert(Object? input) {
+    if (input == null) {
+      return null;
+    }
+    if (input is CategoryItem) {
+      return {
+        'type': 'CategoryItem',
+        'data': input.toJson(),
+      };
+    }
+    if (input is SavingCategoryItems) {
+      return {
+        'type': 'SavingCategoryItems',
+        'data': input.toJson(),
+      };
+    }
+    return input;
+  }
+}
+
+// Implement the decoder
+class _CustomDecoder extends Converter<Object?, Object?> {
+  const _CustomDecoder();
+  @override
+  Object? convert(Object? input) {
+    if (input == null) {
+      return null;
+    }
+    if (input is Map<String, dynamic>) {
+      if (input['type'] == 'CategoryItem') {
+        return CategoryItem.fromJson(input['data'] as Map<String, dynamic>);
+      }
+      if (input['type'] == 'SavingCategoryItems') {
+        return SavingCategoryItems.fromJson(
+            input['data'] as Map<String, dynamic>);
+      }
+    }
+    return input;
+  }
+}
+
 Future<bool?> showExitConfirmationDialog(BuildContext context) {
   return showDialog<bool>(
     context: context,
@@ -230,48 +253,3 @@ Future<bool?> showExitConfirmationDialog(BuildContext context) {
 }
 
 bool isPopUpShow = false;
-
-// Create a codec that implements Codec<Object?, Object?>
-class CustomGoRouterCodec extends Codec<Object?, Object?> {
-  const CustomGoRouterCodec();
-  // Need to implement encoder and decoder
-  @override
-  final Converter<Object?, Object?> encoder = const _CustomEncoder();
-  @override
-  final Converter<Object?, Object?> decoder = const _CustomDecoder();
-}
-
-// Implement the encoder
-class _CustomEncoder extends Converter<Object?, Object?> {
-  const _CustomEncoder();
-  @override
-  Object? convert(Object? input) {
-    if (input == null) {
-      return null;
-    }
-    if (input is CategoryItem) {
-      return {
-        'type': 'CategoryItem',
-        'data': input.toJson(),
-      };
-    }
-    return input;
-  }
-}
-
-// Implement the decoder
-class _CustomDecoder extends Converter<Object?, Object?> {
-  const _CustomDecoder();
-  @override
-  Object? convert(Object? input) {
-    if (input == null) {
-      return null;
-    }
-    if (input is Map<String, dynamic>) {
-      if (input['type'] == 'CategoryItem') {
-        return CategoryItem.fromJson(input['data'] as Map<String, dynamic>);
-      }
-    }
-    return input;
-  }
-}

@@ -117,7 +117,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 roundedBodyWidget: SingleChildScrollView(
                   padding: EdgeInsets.symmetric(
                     horizontal: 30.w,
-                    vertical: 5.h,
+                    vertical: 10.h,
                   ),
                   child: Column(
                     children: [
@@ -176,7 +176,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           child: Text('Forgot Password?'),
                         ),
                       ),
-                      70.hSpace,
+                      200.hSpace,
                       _footerWidget(context),
                     ],
                   ),

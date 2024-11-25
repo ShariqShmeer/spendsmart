@@ -8,4 +8,12 @@ extension IntigerExtensions on int {
   Widget get wSpace => SizedBox(
         width: w,
       );
+
+  Widget get sphSpace => SizedBox(
+        height: sp,
+      );
+
+  Widget get spwSpace => SizedBox(
+        width: sp,
+      );
 }

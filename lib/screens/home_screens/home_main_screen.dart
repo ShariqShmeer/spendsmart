@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spendsmart/res/app_size.dart';
 import 'package:spendsmart/utils/extensions/integer_extensions.dart';
 import 'package:spendsmart/widgets/custom_scaffold.dart';
 
@@ -50,7 +51,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                     },
                     title: Text('List Number ${index + 1}'),
                   )),
-          30.hSpace,
+          AppSize.defaultBottomNavHeight.sphSpace,
         ],
       ),
     );

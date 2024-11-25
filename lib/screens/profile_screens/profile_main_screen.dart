@@ -21,7 +21,6 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
     return CustomScaffold(
       appBar: AppBar(
         title: Text('Profile'),
-        centerTitle: true,
       ),
       roundedBodyPercentage: 75,
       topWidget: ProfileWidget(
@@ -35,28 +34,28 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
       roundedBodyWidget: Column(
         children: [
           10.hSpace,
-          CustomTileWidget(
+          _optionTile(
             leading: Icon(Icons.person),
             title: 'Edit Profile',
             onTap: () {
               GoRouter.of(context).pushNamed(Screens.editProfile);
             },
           ),
-          CustomTileWidget(
+          _optionTile(
             leading: Icon(Icons.security),
             title: 'Security',
             onTap: () {
               GoRouter.of(context).pushNamed(Screens.security);
             },
           ),
-          CustomTileWidget(
+          _optionTile(
             leading: Icon(Icons.settings),
             title: 'Settings',
             onTap: () {
               GoRouter.of(context).pushNamed(Screens.setting);
             },
           ),
-          CustomTileWidget(
+          _optionTile(
             leading: Icon(Icons.logout_outlined),
             title: 'Logout',
             onTap: () {
@@ -98,6 +97,21 @@ class _ProfileMainScreenState extends State<ProfileMainScreen> {
           ],
         );
       },
+    );
+  }
+
+  Widget _optionTile({
+    required Widget leading,
+    required String title,
+    String? subTitle,
+    void Function()? onTap,
+  }) {
+    return CustomTileWidget(
+      leading: leading,
+      title: title,
+      trailing: Center(child: Icon(Icons.adaptive.arrow_forward)),
+      subTitle: subTitle,
+      onTap: onTap,
     );
   }
 }

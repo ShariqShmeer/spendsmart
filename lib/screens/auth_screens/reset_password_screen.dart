@@ -255,7 +255,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         // Future.delayed(const Duration(seconds: 1), () {
         //   Navigator.pop(context);
         // });
-        GoRouter.of(context).pushNamed(Screens.loading);
+        GoRouter.of(context).pushReplacementNamed(Screens.loading);
       }
     }
   }

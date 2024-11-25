@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:spendsmart/res/app_icons.dart';
+import 'package:spendsmart/widgets/custom_icon.dart';
 import 'package:spendsmart/widgets/custom_scaffold.dart';
 
 class TransactionsMainScreen extends StatefulWidget {
@@ -14,13 +16,15 @@ class _TransactionsMainScreenState extends State<TransactionsMainScreen> {
     return CustomScaffold(
       appBar: AppBar(
         title: Text('Transaction'),
-        centerTitle: true,
       ),
       roundedBodyPercentage: 75,
       topWidget: SizedBox(),
-      roundedBodyWidget: const Center(
-        child: Text('Transaction Main Screen'),
-      ),
+      roundedBodyWidget: ListView.builder(
+          itemCount: AppIcons.getIcons.length,
+          itemBuilder: (context, index) {
+            return Card(
+                child: CustomIcon(customIcons: AppIcons.getIcons[index]));
+          }),
     );
   }
 }
